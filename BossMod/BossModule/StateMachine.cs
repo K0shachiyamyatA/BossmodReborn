@@ -1,4 +1,8 @@
-﻿using ImGuiNET;
+﻿using Dalamud.Interface;
+using Dalamud.Interface.Colors;
+using Dalamud.Interface.Utility;
+using Dalamud.Utility;
+using ImGuiNET;
 using System.Text;
 
 namespace BossMod;
@@ -114,20 +118,118 @@ public class StateMachine
 
     public void Draw()
     {
-        (var activeName, var next) = ActiveState != null ? BuildComplexStateNameAndDuration(ActiveState, TimeSinceTransition, true) : ("Inactive", null);
-        ImGui.TextUnformatted($"Cur: {activeName}");
+        //(var activeName, var next) = ActiveState != null ? BuildComplexStateNameAndDuration(ActiveState, TimeSinceTransition, true) : ("Inactive", null);
+        //ImGui.TextUnformatted($"Cur: {activeName}");
 
-        var future = BuildStateChain(next, " ---> ");
-        if (future.Length == 0)
+        //var future = BuildStateChain(next, " ---> ");
+        //if (future.Length == 0)
+        //{
+        //    ImGui.TextUnformatted("");
+        //}
+        //else
+        //{
+        //    ImGui.TextUnformatted($"Then: {future}");
+        //}
+
+        var activePhase = ActivePhase;
+        if (activePhase == null)
         {
-            ImGui.TextUnformatted("");
+            ImGui.TextUnformatted("Inactive");
+            return;
         }
-        else
+        var timeSincePhase = TimeSincePhaseEnter;
+        DrawProgressBarPhase(activePhase, timeSincePhase);
+
+        var activeState = ActiveState;
+        var timeSinceTransition = TimeSinceTransition;
+        if (activeState == null)
         {
-            ImGui.TextUnformatted($"Then: {future}");
+            return;
+        }
+        DrawProgressBarState(activeState, timeSinceTransition);
+    }
+
+    private void DrawProgressBarState(State activeState, float timeSinceTransition)
+    {
+        float durationTotal = activeState.Duration;
+        float durationRemaining = activeState.Duration - timeSinceTransition;
+        if (durationRemaining < 0)
+            durationRemaining = 0;
+        string name = activeState.Name;
+        DrawProgressBar(name, durationTotal, durationRemaining);
+        foreach (var state in activeState.NextStates ?? Array.Empty<State>())
+        {
+            DrawNextState(state);
         }
     }
 
+    private void DrawNextState(State state)
+    {
+        var name = state.Name;
+        ImGui.Indent();
+        ImGui.TextUnformatted($"Next: {(string.IsNullOrWhiteSpace(name) ? "Unknown" : name)}");
+    }
+
+    private void DrawProgressBarPhase(Phase activePhase, float timeSincePhase)
+    {
+        float durationTotal = activePhase.ExpectedDuration;
+        float durationRemaining = activePhase.ExpectedDuration - timeSincePhase;
+        if (durationRemaining < 0)
+            durationRemaining = 0;
+        string name = activePhase.Name;
+        DrawProgressBar(name, durationTotal, durationRemaining);
+    }
+
+    private void DrawProgressBar(string name, float durationTotal, float durationRemaining)
+    {
+        // Calculate the progress ratio
+        float progress = durationRemaining / durationTotal;
+
+        // Set up the dimensions and position for the progress bar
+        Vector2 startPos = ImGui.GetCursorScreenPos(); // Top-left of the progress bar
+        float progressBarWidth = ImGui.GetContentRegionAvail().X; // Width based on the available space in the layout
+        float progressBarHeight = 20; // Height of the progress bar
+
+        // Background color and filled color
+        var bgColor = ConvertVector4ToUint(ImGuiColors.DalamudGrey);
+        var fgColor = ConvertVector4ToUint(ImGuiColors.DalamudRed);
+        var textColor = ConvertVector4ToUint(new Vector4(0,0,0,1));
+
+        // Draw background
+        ImGui.GetWindowDrawList().AddRectFilled(startPos, new Vector2(startPos.X + progressBarWidth, startPos.Y + progressBarHeight), bgColor);
+
+        // Draw filled portion
+        ImGui.GetWindowDrawList().AddRectFilled(startPos, new Vector2(startPos.X + progressBarWidth * progress, startPos.Y + progressBarHeight), fgColor);
+
+        // Text formatting and positioning
+        string remainingTimeText = $"{durationRemaining:F2}s / {durationTotal:F2}s";
+        if (durationTotal <= 0) remainingTimeText = "";
+        string fullText = $"{name} {remainingTimeText}";
+        Vector2 text_size = ImGui.CalcTextSize(fullText);
+
+        // Position text centered in the progress bar
+        Vector2 textPos = new Vector2(
+            startPos.X + (progressBarWidth - text_size.X) * 0.5f,
+            startPos.Y + (progressBarHeight - text_size.Y) * 0.5f
+        );
+
+        // Overlay the text onto the progress bar
+        ImGui.GetWindowDrawList().AddText(textPos, textColor, fullText);
+
+        // Advance cursor position below the progress bar
+        ImGui.SetCursorPosY(ImGui.GetCursorPosY() + progressBarHeight + ImGui.GetStyle().ItemSpacing.Y);
+    }
+    public static uint ConvertVector4ToUint(Vector4 color)
+    {
+        byte r = (byte)(color.X * 255);
+        byte g = (byte)(color.Y * 255);
+        byte b = (byte)(color.Z * 255);
+        byte a = (byte)(color.W * 255);
+
+        // Pack into uint: each component is shifted left into its position
+        // R is shifted 24 bits left, G 16 bits, B 8 bits, A stays at the least significant bits
+        return ((uint)r) | ((uint)g << 8) | ((uint)b << 16) | ((uint)a << 24);
+    }
     public string BuildStateChain(State? start, string sep, int maxCount = 5)
     {
         int count = 0;
