@@ -57,7 +57,9 @@ class ShimmeringShot(BossModule module, float spawnToActivation) : TemperatureAO
     public override void Update()
     {
         InitArrow(OID.SparkArrow, +1);
+        InitArrow(OID.FlameArrow, +2);
         InitArrow(OID.FrostArrow, -1);
+        InitArrow(OID.GlacierArrow, -2);
     }
 
     public override void OnEventCast(Actor caster, ActorCastEvent spell)

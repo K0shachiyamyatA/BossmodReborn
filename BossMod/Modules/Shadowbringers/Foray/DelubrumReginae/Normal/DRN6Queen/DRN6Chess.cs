@@ -1,6 +1,6 @@
 ﻿namespace BossMod.Shadowbringers.Foray.DelubrumReginae.Normal.DRN6Queen;
 
-public abstract class Chess : Components.GenericAOEs
+abstract class Chess(BossModule module) : Components.GenericAOEs(module)
 {
     public struct GuardState
     {
@@ -11,8 +11,6 @@ public abstract class Chess : Components.GenericAOEs
     protected GuardState[] GuardStates = new GuardState[4];
     protected static readonly AOEShapeCross Shape = new(60, 5);
 
-    public Chess(BossModule module) : base(module) { }
-
     public override IEnumerable<AOEInstance> ActiveAOEs(int slot, Actor actor)
     {
         if (NumCasts >= 4)
@@ -21,7 +19,7 @@ public abstract class Chess : Components.GenericAOEs
         IEnumerable<GuardState> imminent = NumCasts < 2 ? GuardStates.Take(2) : GuardStates.Skip(2);
         foreach (var g in imminent)
             if (g.Actor != null)
-                yield return new AOEInstance(Shape, g.FinalPosition, g.Actor.Rotation);
+                yield return new(Shape, g.FinalPosition, g.Actor.Rotation);
     }
 
     public override void OnStatusGain(Actor actor, ActorStatus status)
@@ -38,7 +36,7 @@ public abstract class Chess : Components.GenericAOEs
             var index = GuardIndex(actor);
             if (distance != 0 && index >= 0 && GuardStates[index].Actor == null)
             {
-                GuardStates[index] = new GuardState { Actor = actor, FinalPosition = actor.Position + distance * 10 * actor.Rotation.ToDirection() };
+                GuardStates[index] = new() { Actor = actor, FinalPosition = actor.Position + distance * 10 * actor.Rotation.ToDirection() };
             }
         }
     }
@@ -59,11 +57,7 @@ public abstract class Chess : Components.GenericAOEs
     };
 }
 
-// QueensWill now inherits from Chess
-public class QueensWill : Chess
-{
-    public QueensWill(BossModule module) : base(module) { }
-}
+class QueensWill(BossModule module) : Chess(module) { }
 
 // TODO: enumerate all possible safespots instead? after first pair of casts, select still suitable second safespots
 class QueensEdict(BossModule module) : Chess(module)

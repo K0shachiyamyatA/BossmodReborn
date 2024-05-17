@@ -62,6 +62,8 @@ public enum AID : uint
     CoatOfArmsLR = 22519, // AetherialWard->self, 4.0s cast, single-target
     CoatOfArmsFB = 22518, // AetherialWard->self, 4.0s cast, single-target
     Counterplay = 22520, // Helper->player, no cast, single-target
+
+    BloodAndBone = 22522, // Knight->self, 5.0s cast, range 60 circle
 }
 
 

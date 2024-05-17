@@ -5,6 +5,7 @@ class DRN4PhantomStates : StateMachineBuilder
     {
         TrivialPhase()
             .ActivateOnEnter<UndyingHatred>()
+            .ActivateOnEnter<VileWave>()
             .ActivateOnEnter<Miasma>();
     }
 }

@@ -24,8 +24,8 @@ public enum AID : uint
 
 public enum IconID : uint
 {
-    Icon_218 = 218, // player
-    Icon_62 = 62, // player
+    Tankbuster = 218, // player
+    Stackmarker = 62, // player
 }
 class PillarPierceAOE(BossModule module) : Components.SelfTargetedAOEs(module, ActionID.MakeSpell(AID.PillarPierceAOE), new AOEShapeRect(40, 2));
 class PunishingSliceAOE(BossModule module) : Components.SelfTargetedAOEs(module, ActionID.MakeSpell(AID.PunishingSliceAOE), new AOEShapeRect(50, 50));

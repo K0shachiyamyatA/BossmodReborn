@@ -70,5 +70,5 @@ class D042SerGrinnauxStates : StateMachineBuilder
     }
 }
 
-[ModuleInfo(BossModuleInfo.Maturity.WIP, Contributors = "CombatReborn Team, Xyzzy", GroupType = BossModuleInfo.GroupType.CFC, GroupID = 34, NameID = 3639)]
+[ModuleInfo(BossModuleInfo.Maturity.WIP, Contributors = "The Combat Reborn Team, Xyzzy", GroupType = BossModuleInfo.GroupType.CFC, GroupID = 34, NameID = 3639)]
 public class D042SerGrinnaux(WorldState ws, Actor primary) : BossModule(ws, primary, new ArenaBoundsCircle(new(0, 72), 20));

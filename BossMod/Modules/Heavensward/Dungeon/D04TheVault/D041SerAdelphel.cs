@@ -82,5 +82,5 @@ class D041SerAdelphelStates : StateMachineBuilder
     }
 }
 
-[ModuleInfo(BossModuleInfo.Maturity.WIP, Contributors = "CombatReborn Team, Xyzzy", GroupType = BossModuleInfo.GroupType.CFC, GroupID = 34, NameID = 3634)]
+[ModuleInfo(BossModuleInfo.Maturity.WIP, Contributors = "The Combat Reborn Team, Xyzzy", GroupType = BossModuleInfo.GroupType.CFC, GroupID = 34, NameID = 3634)]
 public class D041SerAdelphel(WorldState ws, Actor primary) : BossModule(ws, primary, new ArenaBoundsCircle(new(0, -100), 20));

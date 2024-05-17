@@ -8,7 +8,7 @@ class DRN6QueenStates : StateMachineBuilder
             .ActivateOnEnter<GodsSaveTheQueen>()
             .ActivateOnEnter<OptimalPlaySword>()
             .ActivateOnEnter<OptimalPlayShield>()
-            .ActivateOnEnter<OptimalPlayCone>()
+            //.ActivateOnEnter<OptimalPlayCone>()
             .ActivateOnEnter<JudgmentBlade>()
             .ActivateOnEnter<HeavensWrathAOE>()
             .ActivateOnEnter<HeavensWrathKnockback>()

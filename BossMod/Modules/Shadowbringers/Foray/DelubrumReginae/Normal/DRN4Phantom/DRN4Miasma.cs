@@ -17,7 +17,6 @@ class Miasma(BossModule module) : Components.GenericAOEs(module)
     private Order _order;
 
     private static readonly AOEShapeRect _shapeRect = new(50, 6);
-    private static readonly AOEShapeCircle _shapeCircle = new(8);
     private static readonly AOEShapeDonut _shapeDonut = new(5, 19);
 
     public override IEnumerable<AOEInstance> ActiveAOEs(int slot, Actor actor)
@@ -136,7 +135,7 @@ class Miasma(BossModule module) : Components.GenericAOEs(module)
         ++lane.NumCasts;
         if (lane.Shape == _shapeRect)
         {
-            if (lane.NumCasts >= 3)
+            if (lane.NumCasts >= 1)
             {
                 lane.Shape = null;
                 ++NumLanesFinished;

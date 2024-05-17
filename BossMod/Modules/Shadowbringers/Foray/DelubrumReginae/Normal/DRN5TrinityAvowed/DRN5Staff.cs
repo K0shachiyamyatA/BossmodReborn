@@ -1,4 +1,7 @@
-﻿namespace BossMod.Shadowbringers.Foray.DelubrumReginae.Normal.DRN5TrinityAvowed;
+﻿using BossMod.Shadowbringers.Foray.DelubrumReginae.Savage.DRS6TrinityAvowed;
+using System.Reflection;
+
+namespace BossMod.Shadowbringers.Foray.DelubrumReginae.Normal.DRN5TrinityAvowed;
 
 class FreedomOfBozja : TemperatureAOE
 {
@@ -46,5 +49,12 @@ class FreedomOfBozja : TemperatureAOE
 }
 
 class FreedomOfBozja1(BossModule module) : FreedomOfBozja(module, false);
+
+class QuickMarchStaff1(BossModule module) : QuickMarch(module)
+{
+    private FreedomOfBozja1? _freedom = module.FindComponent<FreedomOfBozja1>();
+
+    public override bool DestinationUnsafe(int slot, Actor actor, WPos pos) => !Module.Bounds.Contains(pos) || (_freedom?.ActorUnsafeAt(actor, pos) ?? false);
+}
 
 class FreedomOfBozja2(BossModule module) : FreedomOfBozja(module, true);

@@ -5,9 +5,9 @@ public enum OID : uint
     Boss = 0x30E6, // R3.400, x?
     Helper = 0x233C, // R0.500, x?, mixed types
     SparkArrow = 0x30E7, // R2.000, x?
-    //FlameArrow = 0x30DE, // R2.000, spawn during fight (gives +2 temperature)
+    FlameArrow = 0x30E8, // R2.000, spawn during fight (gives +2 temperature)
     FrostArrow = 0x30E9, // R2.000, x?
-    //GlacierArrow = 0x30E0, // R2.000, spawn during fight (gives -2 temperature)
+    GlacierArrow = 0x30EA, // R2.000, spawn during fight (gives -2 temperature)
     SwirlingOrb = 0x30EB, // R1.000, x?
     TempestuousOrb = 0x30EC, // R1.000, x?
     BlazingOrb = 0x30ED, // R2.250, x?
@@ -111,5 +111,5 @@ public enum SID : uint
 
 public enum IconID : uint
 {
-    Icon_218 = 218, // player
+    Tankbuster = 218, // player
 }

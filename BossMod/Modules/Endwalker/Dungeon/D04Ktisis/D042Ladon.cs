@@ -19,6 +19,7 @@ public enum AID : uint
     PyricBreathRight = 25736, // Boss->self, 7.0s cast, range 40 120-degree cone
     PyricBreath4 = 25737, // Boss->self, no cast, range 40 ?-degree cone
     PyricBreath5 = 25738, // Boss->self, no cast, range 40 ?-degree cone
+    PyricBreath6 = 25739, // Boss->self, no cast, range 40 ?-degree cone
     PyricSphereVisual = 25744, // PyricSphere->self, 5.0s cast, single-target
     PyricSphereAOE = 25745, // Helper->self, 10.0s cast, range 50 width 4 cross //Cross
     ScratchTankbuster = 25743, // Boss->player, 5.0s cast, single-target //Tankbuster
@@ -37,8 +38,8 @@ public enum SID : uint
 
 public enum IconID : uint
 {
-    Icon_218 = 218, // player
-    Icon_62 = 62, // player
+    Tankbuster = 218, // player
+    Stackmarker = 62, // player
 }
 class PyricSphereAOE(BossModule module) : Components.SelfTargetedAOEs(module, ActionID.MakeSpell(AID.PyricSphereAOE), new AOEShapeCross(50, 2));
 

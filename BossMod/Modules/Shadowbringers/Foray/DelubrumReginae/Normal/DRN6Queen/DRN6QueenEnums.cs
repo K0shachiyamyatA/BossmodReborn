@@ -75,8 +75,8 @@ public enum AID : uint
     AutomaticTurretRP1 = 23006, // QueensGunner->self, 3.0s cast, single-target
     TurretsTour = 23007, // QueensGunner->self, 5.0s cast, single-target, visual (unseen statuses)
     TurretsTourAOE1 = 23008, // Helper->location, 5.0s cast, width 6 rect charge
-    TurretsTourAOE2 = 23009, // AutomaticTurret->location, no cast, width 6 rect charge
-    TurretsTourAOE3 = 23010, // AutomaticTurret->self, no cast, range 50 width 6 rect
+    TurretsTourAOE2 = 23010, // AutomaticTurret->self, no cast, range 50 width 6 rect
+    TurretsTourAOE3 = 23009, // AutomaticTurret->location, no cast, width 6 rect charge
 }
 
 public enum SID : uint
@@ -87,27 +87,24 @@ public enum SID : uint
     MovementEdictShort2 = 2474, // none->player, extra=0x109
     MovementEdictShort4 = 2476, // none->player, extra=0x10B
     MovementEdictShort3 = 2475, // none->player, extra=0x10A
-    YourMove2Squares = 2480, // none->player, extra=0x0
-    MovementInProgress = 2552, // none->player, extra=0x104/0x106/0x105/0x103
-    YourMove4Squares = 2482, // none->player, extra=0x0
-    YourMove3Squares = 2481, // none->player, extra=0x0
-    Stun = 149, // none->player, extra=0x0
-    TwiceComeRuin = 2485, // AutomaticTurret->player, extra=0x1
-    AboveBoardBombShort = 2429, // none->AetherialBurst, extra=0x3E8
-    AboveBoardBombLong = 2428, // none->AetherialBolt, extra=0x3E8
-    AboveBoardPlayerLong = 2426, // none->player, extra=0x3E8
-    Doom = 910, // Boss->player, extra=0x0
-    Bleeding = 2088, // Boss->player, extra=0x0
-    FleshWound = 264, // Helper->player, extra=0x0
     MovementEdictLong2 = 2477, // none->player, extra=0x0
     MovementEdictLong3 = 2478, // none->player, extra=0x0
     MovementEdictLong4 = 2479, // none->player, extra=0x0
+    YourMove2Squares = 2480, // none->player, extra=0x0
+    YourMove4Squares = 2482, // none->player, extra=0x0
+    YourMove3Squares = 2481, // none->player, extra=0x0
+    MovementInProgress = 2552, // none->player, extra=0x104/0x106/0x105/0x103
+
+    Stun = 149, // none->player, extra=0x0
     ReversalOfForces = 2447, // none->player, extra=0x0
     RightUnseen = 1707, // none->player, extra=0xE9
     LeftUnseen = 1708, // none->player, extra=0xEA
     BackUnseen = 1709, // none->player, extra=0xE8
     ShieldBearer = 2446, // QueensKnight->QueensKnight, extra=0x0
+    AboveBoardPlayerLong = 2426, // none->player, extra=0x3E8
     AboveBoardPlayerShort = 2427, // none->player, extra=0x3E8
+    AboveBoardBombShort = 2429, // none->AetherialBurst, extra=0x3E8
+    AboveBoardBombLong = 2428, // none->AetherialBolt, extra=0x3E8
 }
 
 public enum IconID : uint
@@ -116,9 +113,9 @@ public enum IconID : uint
     MagicVulnerabilityDown = 137, // player
 }
 
-
 public enum TetherID : uint
 {
     Tether_2 = 2, // QueensSoldier/QueensGunner/QueensWarrior/QueensKnight->Boss
-    Tether_16 = 16, // AetherialBolt/AetherialBurst->QueensWarrior
+    ReversalBomb = 16, // AetherialBolt/AetherialBurst->QueensWarrior
+    SecretsRevealed = 30, // SoldierAvatar->QueensSoldier
 }

@@ -100,7 +100,7 @@ class D043SerCharibertStates : StateMachineBuilder
     }
 }
 
-[ModuleInfo(BossModuleInfo.Maturity.WIP, Contributors = "CombatReborn Team, Xyzzy", GroupType = BossModuleInfo.GroupType.CFC, GroupID = 34, NameID = 3642)]
+[ModuleInfo(BossModuleInfo.Maturity.WIP, Contributors = "The Combat Reborn Team, Xyzzy", GroupType = BossModuleInfo.GroupType.CFC, GroupID = 34, NameID = 3642)]
 public class D043SerCharibert(WorldState ws, Actor primary) : BossModule(ws, primary, new ArenaBoundsSquare(new(0, 4), 20))
 {
     protected override void DrawEnemies(int pcSlot, Actor pc)
